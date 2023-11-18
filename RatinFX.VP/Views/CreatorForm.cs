@@ -1,5 +1,6 @@
-﻿using System.Windows.Forms;
-using VegasProData.General;
+﻿using RatinFX.VP.General;
+using RatinFX.VP.Helpers;
+using System.Windows.Forms;
 
 namespace RatinFX.VP.Views
 {
@@ -8,6 +9,8 @@ namespace RatinFX.VP.Views
         public CreatorForm()
         {
             InitializeComponent();
+
+            Text = $"RatinFX information {Parameters.CurrentVersion}";
         }
 
         private void linkTwitch_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

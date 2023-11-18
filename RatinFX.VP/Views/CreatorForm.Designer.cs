@@ -225,7 +225,7 @@
             this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "RatinFX - Creator information";
+            this.Text = "RatinFX information";
             this.ResumeLayout(false);
             this.PerformLayout();
 

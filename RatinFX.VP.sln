@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VegasProData", "..\VegasProData\VegasProData\VegasProData.csproj", "{24124171-3918-4BF5-A07C-3E00807B7134}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RatinFX.VP", "RatinFX.VP\RatinFX.VP.csproj", "{F94808CA-6D5A-41A4-AB96-7169DF4023D3}"
 EndProject
 Global
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{24124171-3918-4BF5-A07C-3E00807B7134}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{24124171-3918-4BF5-A07C-3E00807B7134}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{24124171-3918-4BF5-A07C-3E00807B7134}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{24124171-3918-4BF5-A07C-3E00807B7134}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F94808CA-6D5A-41A4-AB96-7169DF4023D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F94808CA-6D5A-41A4-AB96-7169DF4023D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F94808CA-6D5A-41A4-AB96-7169DF4023D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
