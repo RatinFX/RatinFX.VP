@@ -223,10 +223,9 @@
             this.MinimizeBox = false;
             this.Name = "CreatorForm";
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Creator";
+            this.Text = "RatinFX - Creator information";
             this.ResumeLayout(false);
             this.PerformLayout();
 
