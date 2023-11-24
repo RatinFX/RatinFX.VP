@@ -19,7 +19,7 @@ namespace RatinFX.VP.Helpers
             return newClient.GetStringAsync($"https://ratinfx.github.io/version/{project}").Result;
         }
 
-        private static void CheckForUpdate(
+        public static void CheckForUpdate(
             string project,
             string current,
             Action<string> latest = null,
