@@ -48,7 +48,12 @@ namespace RatinFX.VP.Views
             Processes.OpenUrl("https://ratinfx.github.io");
         }
 
-        private void linkSupportMyWork_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void linkKofiDonate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Processes.OpenUrl("https://ko-fi.com/RatinFX");
+        }
+
+        private void linkStreamlabsDonate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Processes.OpenUrl("https://streamlabs.com/RatinFX/tip");
         }
