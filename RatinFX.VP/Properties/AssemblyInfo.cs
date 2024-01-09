@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("RatinFX")]
 [assembly: AssemblyProduct("RatinFX VP")]
-[assembly: AssemblyCopyright("Copyright © RatinFX 2023")]
+[assembly: AssemblyCopyright("Copyright © RatinFX 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
