@@ -1,23 +1,13 @@
-﻿using System;
+﻿using Octokit;
+using System;
 using System.Net;
-using System.Net.Http;
-using System.Text.RegularExpressions;
 
 namespace RatinFX.VP.Helpers
 {
     public class Helper
     {
-        private static string GetContentFromURL(string project)
-        {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls
-                   | SecurityProtocolType.Tls11
-                   | SecurityProtocolType.Tls12
-                   | SecurityProtocolType.Ssl3;
-
-            using var newClient = new HttpClient();
-            return newClient.GetStringAsync($"https://ratinfx.github.io/version/{project}").Result;
-        }
+        private static readonly GitHubClient _client = new GitHubClient(new ProductHeaderValue("RatinFX.VP_" + GetCurrentUnixTime()));
+        internal static string GitHubUsername = "RatinFX";
 
         public static void CheckForUpdate(
             string project,
@@ -28,35 +18,55 @@ namespace RatinFX.VP.Helpers
         {
             try
             {
-                var content = GetContentFromURL(project);
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls
+                       | SecurityProtocolType.Tls11
+                       | SecurityProtocolType.Tls12
+                       | SecurityProtocolType.Ssl3;
 
-                var latestVersion = Regex.Match(content, Parameters.VersionPattern).Value;
+                var latestRelease = _client.Repository.Release.GetLatest(GitHubUsername, project)?.Result;
 
-                if (string.IsNullOrEmpty(latestVersion) || latestVersion.Length < 6)
+                if (string.IsNullOrEmpty(latestRelease.TagName))
                 {
                     info?.Invoke("Failed to check for Update.");
                     return;
                 }
 
-                var updateAvailable = !current.Equals(latestVersion);
-                latest?.Invoke(updateAvailable ? latestVersion : null);
-
+                var updateAvailable = !current.StartsWith(latestRelease.TagName);
+                latest?.Invoke(updateAvailable ? latestRelease.TagName : null);
             }
             catch (Exception ex)
             {
-                info?.Invoke("Failed to check for Update.\n" + ex.Message);
+                ex = ex.GetBaseException();
+
+                var msg = "Failed to check for Update.";
+
+                if (ex is RateLimitExceededException)
+                {
+                    // Let's not show the IP of the user for now...
+                    var rateLimited = ex as RateLimitExceededException;
+                    var remaining = rateLimited.Reset.Subtract(DateTimeOffset.Now).TotalMinutes;
+                    msg += $"GitHub API rate limit exceeded, remaining minutes until reset: {remaining:0.00}";
+                }
+                else
+                {
+                    msg += $"\n\n- {ex.Message}";
+                }
+
+                info?.Invoke(msg);
                 return;
             }
         }
 
-        public static void CheckForUpdate_VegasProFlow(string current, Action<string> latest = null, Action<string> info = null)
+        public static bool ShouldCheckForUpdate(long lastChecked)
         {
-            CheckForUpdate("vegas-pro-flow", current, latest, info);
+            return lastChecked - GetCurrentUnixTime() >= 3_600
+                || lastChecked < 0;
         }
 
-        public static void CheckForUpdate_BetterSearch(string current, Action<string> latest = null, Action<string> info = null)
+        public static long GetCurrentUnixTime()
         {
-            CheckForUpdate("better-search", current, latest, info);
+            return DateTimeOffset.Now.ToUnixTimeSeconds();
         }
     }
 }
