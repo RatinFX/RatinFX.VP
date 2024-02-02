@@ -32,7 +32,7 @@ namespace RatinFX.VP.Helpers
                     return;
                 }
 
-                var updateAvailable = !current.StartsWith(latestRelease.TagName);
+                var updateAvailable = current != latestRelease.TagName;
                 latest?.Invoke(updateAvailable ? latestRelease.TagName : null);
             }
             catch (Exception ex)
