@@ -6,7 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RatinFX VP")]
-[assembly: AssemblyDescription("")]
+#if VP13
+[assembly: AssemblyDescription("for SONY versions (13 and earlier)")]
+#else 
+[assembly: AssemblyDescription("for MAGIX versions (14 and later)")]
+#endif
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("RatinFX")]
 [assembly: AssemblyProduct("RatinFX VP")]
