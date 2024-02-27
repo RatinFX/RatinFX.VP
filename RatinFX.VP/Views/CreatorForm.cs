@@ -45,7 +45,7 @@ namespace RatinFX.VP.Views
 
         private void linkWebsite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Processes.OpenUrl("https://ratinfx.github.io");
+            Processes.OpenUrl("https://ratinfx.com");
         }
 
         private void linkKofiDonate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
