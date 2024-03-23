@@ -57,7 +57,7 @@ namespace RatinFX.VP.Helpers
                 return;
             }
         }
-
+        
         public static bool ShouldCheckForUpdate(long lastChecked)
         {
             return GetCurrentUnixTime() - lastChecked >= 3_600
