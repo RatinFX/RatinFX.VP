@@ -52,6 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="General\ControlHelper.cs" />
+    <Compile Include="General\Language\ChineseBase.cs" />
+    <Compile Include="General\Language\EnglishBase.cs" />
+    <Compile Include="General\Language\LanguageBase.cs" />
+    <Compile Include="General\Language\LanguageConfig.cs" />
     <Compile Include="General\Localization.cs" />
     <Compile Include="General\MessageBoxes.cs" />
     <Compile Include="General\Processes.cs" />
