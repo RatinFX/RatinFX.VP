@@ -36,13 +36,23 @@ namespace RatinFX.VP.General.Language
                 }
 
                 // Should force update translations just in case
-                if (LastUpdatedVersion != currentVersion)
+                if (LastUpdatedVersion != currentVersion || Translations.Any(x => x.Translation.Count < 1))
                 {
                     LastUpdatedVersion = currentVersion;
 
                     foreach (var l in languages)
                     {
-                        Translations.FirstOrDefault(x => x.ShortName == l.ShortName)?.Reset();
+                        var tr = Translations.FirstOrDefault(x =>
+                            x.ShortName == l.ShortName ||
+                            x.DisplayName == l.DisplayName
+                        );
+
+                        if (tr == null)
+                            continue;
+
+                        tr.ShortName = l.ShortName;
+                        tr.DisplayName = l.DisplayName;
+                        tr.Translation = l.Create();
                     }
                 }
 
