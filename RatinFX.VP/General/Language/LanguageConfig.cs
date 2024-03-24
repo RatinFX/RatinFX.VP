@@ -24,7 +24,7 @@ namespace RatinFX.VP.General.Language
                 _filePath = filePath;
 
                 var config = FileHandler.LoadVPConfig(this, _filePath);
-                if (config != null && config.Translations.Count > 0)
+                if (config != null && config.Translations.Count > 0 && config.Translations.Count == languages.Count)
                 {
                     LastUpdatedVersion = config.LastUpdatedVersion;
                     Current = config.Current;
