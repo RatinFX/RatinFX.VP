@@ -53,6 +53,7 @@ namespace RatinFX.VP.Helpers
                     msg += $"\n\n- {ex.Message}";
                 }
 
+                latest?.Invoke(null);
                 info?.Invoke(msg);
                 return;
             }
