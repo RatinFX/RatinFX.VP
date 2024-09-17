@@ -42,7 +42,7 @@ namespace RatinFX.VP.General.Language
 
                     foreach (var l in languages)
                     {
-                        var tr = Translations.FirstOrDefault(x =>
+                        var tr = Translations.Find(x =>
                             x.ShortName == l.ShortName ||
                             x.DisplayName == l.DisplayName
                         );
@@ -80,8 +80,8 @@ namespace RatinFX.VP.General.Language
 
         public string CurrentLanguageDisplay()
         {
-            var curr = Translations.FirstOrDefault(x => x.ShortName == Current)
-                ?? Translations.FirstOrDefault(x => x.ShortName == EnglishBase.Short)
+            var curr = Translations.Find(x => x.ShortName == Current)
+                ?? Translations.Find(x => x.ShortName == EnglishBase.Short)
                 ?? Translations.FirstOrDefault();
 
             return curr?.DisplayName ?? "ERROR";
@@ -89,8 +89,8 @@ namespace RatinFX.VP.General.Language
 
         public void SetLanguage(string language)
         {
-            var curr = Translations.FirstOrDefault(x => x.DisplayName == language)
-                ?? Translations.FirstOrDefault(x => x.ShortName == EnglishBase.Short)
+            var curr = Translations.Find(x => x.DisplayName == language)
+                ?? Translations.Find(x => x.ShortName == EnglishBase.Short)
                 ?? Translations.FirstOrDefault();
 
             Current = curr?.ShortName ?? EnglishBase.Short;
@@ -99,11 +99,11 @@ namespace RatinFX.VP.General.Language
 
         public string Find(string key)
         {
-            var lang = Translations.FirstOrDefault(x => x.ShortName == Current);
+            var lang = Translations.Find(x => x.ShortName == Current);
             if (lang != null && lang.Translation.ContainsKey(key))
                 return lang.Translation[key];
 
-            lang = Translations.FirstOrDefault(x => x.ShortName == EnglishBase.Short);
+            lang = Translations.Find(x => x.ShortName == EnglishBase.Short);
             if (lang != null && lang.Translation.ContainsKey(key))
                 return lang.Translation[key];
 
