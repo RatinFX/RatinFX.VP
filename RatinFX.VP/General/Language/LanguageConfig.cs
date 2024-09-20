@@ -1,4 +1,5 @@
-﻿using RatinFX.VP.Helpers;
+﻿using RatinFX.VP.Extensions;
+using RatinFX.VP.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -35,7 +36,7 @@ namespace RatinFX.VP.General.Language
                     Current = config.Current;
                     Translations = config.Translations;
                 }
-                else
+                if (true)
                 {
                     ResetLanguages(currentVersion, languages);
                 }
@@ -62,14 +63,36 @@ namespace RatinFX.VP.General.Language
                 }
 
                 Save();
+
+#if DEBUG
+                LogMissingTranslations(languages);
+#endif
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                Debug.WriteLine($"{DateTime.Now.ToDebugString()} > {ex.Message}");
                 ResetLanguages(currentVersion, languages);
                 Save();
             }
         }
+
+#if DEBUG
+        private void LogMissingTranslations(List<LanguageBase> languages)
+        {
+            foreach (var lang in languages)
+            {
+                var missingKeys = Enum.GetValues(typeof(T))
+                    .Cast<Enum>()
+                    .Select(x => x.ToString())
+                    .Where(key => !lang.Translation.ContainsKey(key));
+
+                foreach (var key in missingKeys)
+                {
+                    Debug.WriteLine($"{DateTime.Now.ToDebugString()} > (!) Missing translation during Init: ({lang.ShortName}){lang.DisplayName} - {key}");
+                }
+            }
+        }
+#endif
 
         public void Save()
         {

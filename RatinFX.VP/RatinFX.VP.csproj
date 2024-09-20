@@ -59,6 +59,7 @@
     <Compile Include="General\Localization.cs" />
     <Compile Include="General\MessageBoxes.cs" />
     <Compile Include="General\Processes.cs" />
+    <Compile Include="Extensions\DateTimeExtension.cs" />
     <Compile Include="Helpers\FileHandler.cs" />
     <Compile Include="Helpers\Helper.cs" />
     <Compile Include="Helpers\Parameters.cs" />
