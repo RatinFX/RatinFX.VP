@@ -6,7 +6,12 @@ using System.Linq;
 
 namespace RatinFX.VP.General.Language
 {
-    public class LanguageConfig
+    /// <summary>
+    /// Language settings
+    /// </summary>
+    /// <typeparam name="T">Custom Enum containing the App related Translation Keys</typeparam>
+    public class LanguageConfig<T>
+        where T : Enum
     {
         private readonly string _filePath;
         public string LastUpdatedVersion { get; set; } = "0.0.0";
@@ -52,7 +57,7 @@ namespace RatinFX.VP.General.Language
 
                         tr.ShortName = l.ShortName;
                         tr.DisplayName = l.DisplayName;
-                        tr.Translation = l.Create();
+                        tr.Translation = l.Create<T>();
                     }
                 }
 

@@ -1,7 +1,8 @@
 ﻿namespace RatinFX.VP.General.Language
 {
     /// <summary>
-    /// Must override <see cref="LanguageBase.Create"/> to create default translation text
+    /// Must override <see cref="LanguageBase.GetTranslation(System.Enum)"/>
+    /// with the project related Translation Keys
     /// </summary>
     public class EnglishBase : LanguageBase
     {
