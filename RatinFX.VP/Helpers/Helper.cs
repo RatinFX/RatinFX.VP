@@ -43,14 +43,18 @@ namespace RatinFX.VP.Helpers
 
                 if (ex is RateLimitExceededException)
                 {
-                    // Let's not show the IP of the user for now...
+                    // Let's not show the IP of the user here...
                     var rateLimited = ex as RateLimitExceededException;
                     var remaining = rateLimited.Reset.Subtract(DateTimeOffset.Now).TotalMinutes;
-                    msg += $"GitHub API rate limit exceeded, remaining minutes until reset: {remaining:0.00}";
+                    msg += $"\n- GitHub API rate limit exceeded, remaining minutes until reset: {remaining:0.00}";
+                }
+                else if (ex is NotFoundException)
+                {
+                    msg += $"\n- The GitHub project or the latest release was not found.";
                 }
                 else
                 {
-                    msg += $"\n\n- {ex.Message}";
+                    msg += $"\n- {ex.Message}";
                 }
 
                 latest?.Invoke(null);
@@ -58,7 +62,7 @@ namespace RatinFX.VP.Helpers
                 return;
             }
         }
-        
+
         public static bool ShouldCheckForUpdate(long lastChecked)
         {
             return GetCurrentUnixTime() - lastChecked >= 3_600
