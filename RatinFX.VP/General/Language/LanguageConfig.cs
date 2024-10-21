@@ -36,7 +36,7 @@ namespace RatinFX.VP.General.Language
                     Current = config.Current;
                     Translations = config.Translations;
                 }
-                if (true)
+                else
                 {
                     ResetLanguages(currentVersion, languages);
                 }
