@@ -20,12 +20,12 @@ namespace RatinFX.VP.Views
 
         private void linkYTMain_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Processes.OpenUrl("https://www.youtube.com/@MartinFX?sub_confirmation=1");
+            Processes.OpenUrl("https://www.youtube.com/@RatinFX?sub_confirmation=1");
         }
 
         private void linkYT2nd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Processes.OpenUrl("https://www.youtube.com/@RatinFX?sub_confirmation=1");
+            Processes.OpenUrl("https://www.youtube.com/@RatinFX2?sub_confirmation=1");
         }
 
         private void linkTwitter_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
