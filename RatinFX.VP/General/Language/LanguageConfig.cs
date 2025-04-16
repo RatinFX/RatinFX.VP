@@ -24,6 +24,8 @@ namespace RatinFX.VP.General.Language
         {
             try
             {
+                Debug.WriteLine("> LanguageConfig INIT");
+
                 if (!init)
                     return;
 
@@ -62,11 +64,8 @@ namespace RatinFX.VP.General.Language
                     }
                 }
 
+                FixMissingTranslations();
                 Save();
-
-#if DEBUG
-                LogMissingTranslations();
-#endif
             }
             catch (Exception ex)
             {
@@ -76,8 +75,7 @@ namespace RatinFX.VP.General.Language
             }
         }
 
-#if DEBUG
-        private void LogMissingTranslations()
+        private void FixMissingTranslations()
         {
             foreach (var lang in Translations)
             {
@@ -97,10 +95,10 @@ namespace RatinFX.VP.General.Language
                 foreach (var key in missingKeys)
                 {
                     Debug.WriteLine($"{DateTime.Now.ToDebugString()} > (!) Missing translation during Init: ({lang.ShortName}){lang.DisplayName} - {key}");
+                    lang.Translation[key] = Find(key);
                 }
             }
         }
-#endif
 
         public void Save()
         {
@@ -120,7 +118,7 @@ namespace RatinFX.VP.General.Language
                 ?? Translations.Find(x => x.ShortName == EnglishBase.Short)
                 ?? Translations.FirstOrDefault();
 
-            return curr?.DisplayName ?? "ERROR";
+            return curr?.DisplayName ?? "ERROR: TL ShortName not found";
         }
 
         public void SetLanguage(string language)
@@ -135,19 +133,43 @@ namespace RatinFX.VP.General.Language
 
         public string Find(string key)
         {
+            // First try
             var lang = Translations.Find(x => x.ShortName == Current);
-            if (lang != null && lang.Translation.ContainsKey(key))
-                return lang.Translation[key];
+            if (CheckAndTranslate(lang, key, out string result))
+            {
+                return result;
+            }
 
+            // Fallback
             lang = Translations.Find(x => x.ShortName == EnglishBase.Short);
-            if (lang != null && lang.Translation.ContainsKey(key))
-                return lang.Translation[key];
+            if (CheckAndTranslate(lang, key, out result))
+            {
+                return result;
+            }
 
+            // Last resort...
             lang = Translations.FirstOrDefault();
-            if (lang != null && lang.Translation.ContainsKey(key))
-                return lang.Translation[key];
+            if (CheckAndTranslate(lang, key, out result))
+            {
+                return result;
+            }
 
-            return $"ERROR: {key}";
+            return $"ERROR: Missing TL for {key}";
+        }
+
+        private bool CheckAndTranslate(LanguageBase lang, string key, out string result)
+        {
+            result = null;
+
+            if (lang == null || !lang.Translation.ContainsKey(key))
+            {
+                return false;
+            }
+
+            result = lang.Translation[key];
+            Debug.WriteLine($"#> Find(key) - {lang}|{key}=\"{result}\"");
+
+            return !string.IsNullOrEmpty(result);
         }
     }
 }
