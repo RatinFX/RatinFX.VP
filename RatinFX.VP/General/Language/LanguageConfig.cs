@@ -65,7 +65,7 @@ namespace RatinFX.VP.General.Language
                 Save();
 
 #if DEBUG
-                LogMissingTranslations(languages);
+                LogMissingTranslations();
 #endif
             }
             catch (Exception ex)
@@ -77,14 +77,22 @@ namespace RatinFX.VP.General.Language
         }
 
 #if DEBUG
-        private void LogMissingTranslations(List<LanguageBase> languages)
+        private void LogMissingTranslations()
         {
-            foreach (var lang in languages)
+            foreach (var lang in Translations)
             {
                 var missingKeys = Enum.GetValues(typeof(T))
                     .Cast<Enum>()
                     .Select(x => x.ToString())
-                    .Where(key => !lang.Translation.ContainsKey(key));
+                    .Where(key =>
+                    {
+                        // Key not found
+                        if (!lang.Translation.ContainsKey(key))
+                            return true;
+
+                        // Not translated yet
+                        return string.IsNullOrEmpty(lang.Translation[key]);
+                    });
 
                 foreach (var key in missingKeys)
                 {
