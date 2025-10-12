@@ -6,7 +6,7 @@ namespace RatinFX.VP.Extensions
     {
         public static string ToDebugString(this DateTime time)
         {
-            return time.ToString("yyyy-mm-dd_HH-mm-dd");
+            return time.ToString("yyyy-mm-dd_HH-mm-ss");
         }
     }
 }
